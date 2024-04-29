@@ -3,6 +3,7 @@
     public class Owner
     {
         public int Id { get; set; }
-        public int Name { get; set; }
+        public string Name { get; set; }
+        public ICollection<Book> Books { get; set; }
     }
 }
