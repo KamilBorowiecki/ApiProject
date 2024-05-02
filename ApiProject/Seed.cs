@@ -12,7 +12,8 @@ namespace ApiProject
         }
         public void SeedDataContext()
         {
-            
+            if (!dataContext.Owners.Any())
+            {
                 var owners = new List<Owner>()
                 {
                     new Owner()
@@ -37,7 +38,7 @@ namespace ApiProject
                 };
                 dataContext.Owners.AddRange(owners);
                 dataContext.SaveChanges();
-            
+            }
         }
     }
 }
