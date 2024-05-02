@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using ApiProject.Data;
 using ApiProject.Models;
 using ApiProject;
+using ApiProject.Interfaces;
+using ApiProject.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddTransient<Seed>();
+builder.Services.AddScoped<IBookInterface, BookRepository>();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
