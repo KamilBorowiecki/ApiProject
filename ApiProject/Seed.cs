@@ -12,7 +12,7 @@ namespace ApiProject
         }
         public void SeedDataContext()
         {
-           
+            
                 var owners = new List<Owner>()
                 {
                     new Owner()
@@ -24,6 +24,16 @@ namespace ApiProject
                             new Book(){ Title = "Wiedzmin" }
                         }
                     },
+                    new Owner()
+                    {
+                        Name = "Marek Stachurski",
+                        Books = new List<Book>()
+                        {
+                            new Book(){ Title = "Czarny Labedz"},
+                            new Book(){ Title = "Jak stracilem 1mln" },
+                            new Book(){ Title = "Powojnie" }
+                        }
+                    }
                 };
                 dataContext.Owners.AddRange(owners);
                 dataContext.SaveChanges();
