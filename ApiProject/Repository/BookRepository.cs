@@ -12,9 +12,25 @@ namespace ApiProject.Repository
             this._context = dataContext;
         }
 
+        public Book GetBook(int id)
+        {
+            return _context.Books.Where(b=>b.Id == id).FirstOrDefault();
+        }
+
+        public Book GetBookByTitle(string title)
+        {
+            return _context.Books.Where(b => b.Title == title).FirstOrDefault();
+        }
+
         public ICollection<Book> GetBooks()
         {
             return _context.Books.OrderBy(b=>b.Id).ToList();
         }
+
+        public bool HasBook(int bookId)
+        {
+            return _context.Books.Any(b => b.Id == bookId);
+        }
     }
+    
 }
