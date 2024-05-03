@@ -8,29 +8,29 @@ namespace ApiProject.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookController : Controller
+    public class OwnerController : Controller
     {
-        private readonly IBookInterface bookInterface;
+        private readonly IOwnerInterfaces ownerInterface;
         private readonly DataContext context;
 
-        public BookController(IBookInterface iFaces, DataContext context)
+        public OwnerController(IOwnerInterfaces iFaces, DataContext context)
         {
-            this.bookInterface = iFaces;
+            this.ownerInterface = iFaces;
             this.context = context;
         }
 
-        public IBookInterface BookInterface => bookInterface;
+        public IOwnerInterfaces OwnerInterface => ownerInterface;
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Book>))]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<Owner>))]
         public IActionResult getBooks()
         {
-            var books = BookInterface.GetBooks();
-            if(!ModelState.IsValid)
+            var owners = OwnerInterface.GetOwners();
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            return Ok(books);
+            return Ok(owners);
         }
     }
 }
