@@ -8,5 +8,7 @@ namespace ApiProject.Interfaces
         Book GetBook(int id);
         Book GetBookByTitle(string title);
         bool HasBook(int bookId);
+        bool CreateBook(int ownerId, Book book);
+        bool Save();
     }
 }

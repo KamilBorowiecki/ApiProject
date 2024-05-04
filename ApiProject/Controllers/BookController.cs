@@ -3,6 +3,7 @@ using ApiProject.Interfaces;
 using ApiProject.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.Metrics;
 
 namespace ApiProject.Controllers
 {
@@ -31,6 +32,37 @@ namespace ApiProject.Controllers
                 return BadRequest(ModelState);
             }
             return Ok(books);
+        }
+
+        [HttpPost]
+        public IActionResult CreateBook([FromQuery] int ownerId, [FromBody] Book bookCreate)
+        {
+            if (bookCreate == null)
+                return BadRequest(ModelState);
+
+            var book = bookInterface.GetBooks()
+                .Where(c => c.Title.Trim().ToUpper() == bookCreate.Title.TrimEnd().ToUpper())
+                .FirstOrDefault();
+
+            if (book != null)
+            {
+                ModelState.AddModelError("", "Book already exists");
+                return StatusCode(422, ModelState);
+            }
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var newBooks = new List<Book>();
+            newBooks.Add(bookCreate);
+
+            if (!bookInterface.CreateBook(ownerId, bookCreate))
+            {
+                ModelState.AddModelError("", "Something went wrong while savin");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Successfully created");
         }
 
     }

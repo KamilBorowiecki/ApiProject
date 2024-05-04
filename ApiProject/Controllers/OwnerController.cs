@@ -23,7 +23,6 @@ namespace ApiProject.Controllers
         public IOwnerInterfaces OwnerInterface => ownerInterface;
 
         [HttpGet]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<Owner>))]
         public IActionResult getBooks()
         {
             var owners = OwnerInterface.GetOwners();
@@ -35,8 +34,6 @@ namespace ApiProject.Controllers
         }
 
         [HttpGet("OwnerId/books")]
-        [ProducesResponseType(200, Type = typeof(IEnumerable<string>))]
-        [ProducesResponseType(400)]
         public IActionResult getBooksByOwner(int id)
         {
             if (!ownerInterface.HasOwner(id))
