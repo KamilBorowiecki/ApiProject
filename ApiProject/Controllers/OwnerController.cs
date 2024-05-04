@@ -1,6 +1,7 @@
 ﻿using ApiProject.Data;
 using ApiProject.Interfaces;
 using ApiProject.Models;
+using ApiProject.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -31,6 +32,25 @@ namespace ApiProject.Controllers
                 return BadRequest(ModelState);
             }
             return Ok(owners);
+        }
+
+        [HttpGet("OwnerId/books")]
+        [ProducesResponseType(200, Type = typeof(IEnumerable<string>))]
+        [ProducesResponseType(400)]
+        public IActionResult getBooksByOwner(int id)
+        {
+            if (!ownerInterface.HasOwner(id))
+            {
+                return NotFound();
+            }
+
+            var books = new List<string>(
+                ownerInterface.getBooksByOwner(id));
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            return Ok(books);
         }
     }
 }

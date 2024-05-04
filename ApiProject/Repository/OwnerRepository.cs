@@ -31,5 +31,9 @@ namespace ApiProject.Repository
         {
             return _context.Owners.Any(b => b.Id == ownerID);
         }
+        public ICollection<string> getBooksByOwner(int ownerId)
+        {
+            return _context.Books.Where(p => p.OwnerId == ownerId).Select(b=>b.Title).ToList();
+        }
     }
 }

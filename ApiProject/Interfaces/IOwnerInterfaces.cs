@@ -10,6 +10,6 @@ namespace ApiProject.Interfaces
 
         bool HasOwner (int ownerId);
 
-
+        ICollection<string> getBooksByOwner(int ownerId);
     }
 }
