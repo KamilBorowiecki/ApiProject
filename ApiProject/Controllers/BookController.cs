@@ -35,7 +35,7 @@ namespace ApiProject.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateBook([FromQuery] int ownerId, [FromBody] Book bookCreate)
+        public IActionResult CreateBook([FromBody] Book bookCreate)
         {
             if (bookCreate == null)
                 return BadRequest(ModelState);
@@ -56,7 +56,7 @@ namespace ApiProject.Controllers
             var newBooks = new List<Book>();
             newBooks.Add(bookCreate);
 
-            if (!bookInterface.CreateBook(ownerId, bookCreate))
+            if (!bookInterface.CreateBook(bookCreate))
             {
                 ModelState.AddModelError("", "Something went wrong while savin");
                 return StatusCode(500, ModelState);

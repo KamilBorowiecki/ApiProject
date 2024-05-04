@@ -2,6 +2,7 @@
 using ApiProject.Interfaces;
 using ApiProject.Models;
 using System.Diagnostics.Metrics;
+using System.Linq;
 
 namespace ApiProject.Repository
 {
@@ -32,7 +33,7 @@ namespace ApiProject.Repository
         {
             return _context.Books.Any(b => b.Id == bookId);
         }
-        public bool CreateBook(int ownerId, Book book)
+        public bool CreateBook(Book book)
         {
             _context.Add(book);
             return Save();
