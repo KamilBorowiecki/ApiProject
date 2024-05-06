@@ -86,6 +86,27 @@ namespace ApiProject.Controllers
 
             return Ok("Successfully created");
         }
+
+        [HttpDelete("{bookId}")]
+        public IActionResult DeleteBook(int bookId)
+        {
+            if (!bookInterface.HasBook(bookId))
+            {
+                return NotFound();
+            }
+
+             var bookToDelete = bookInterface.GetBook(bookId);
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            if (!bookInterface.DeleteBook(bookToDelete))
+            {
+                ModelState.AddModelError("", "Something went wrong deleting category");
+            }
+
+            return NoContent();
+        }
     }
 }
 

@@ -10,6 +10,7 @@ namespace ApiProject.Interfaces
         bool HasBook(int bookId);
         bool CreateBook(Book book);
         bool UpdateBook(Book book);
+        bool DeleteBook(Book book);
         bool Save();
     }
 }

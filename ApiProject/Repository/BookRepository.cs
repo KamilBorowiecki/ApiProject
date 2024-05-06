@@ -50,5 +50,10 @@ namespace ApiProject.Repository
             return Save();
         }
 
+        public bool DeleteBook(Book book)
+        {
+            _context.Remove(book);
+            return Save();
+        }
     }
 }
