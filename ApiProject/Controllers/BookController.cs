@@ -26,7 +26,7 @@ namespace ApiProject.Controllers
         [ProducesResponseType(200, Type = typeof(IEnumerable<Book>))]
         public IActionResult getBooks()
         {
-            var books = BookInterface.GetBooks();
+            var books = bookInterface.GetBooks();
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -105,7 +105,7 @@ namespace ApiProject.Controllers
                 ModelState.AddModelError("", "Something went wrong deleting category");
             }
 
-            return NoContent();
+            return Ok();
         }
     }
 }
