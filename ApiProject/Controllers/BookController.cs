@@ -27,7 +27,7 @@ namespace ApiProject.Controllers
         public IActionResult getBooks()
         {
             var books = BookInterface.GetBooks();
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -53,8 +53,6 @@ namespace ApiProject.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var newBooks = new List<Book>();
-            newBooks.Add(bookCreate);
 
             if (!bookInterface.CreateBook(bookCreate))
             {
@@ -65,5 +63,29 @@ namespace ApiProject.Controllers
             return Ok("Successfully created");
         }
 
+        [HttpPut("{bookId}")]
+        public IActionResult UpdateBook(int bookId, [FromBody] Book bookUpadate)
+        {
+            if (bookUpadate == null)
+                return BadRequest(ModelState);
+
+            if (bookId != bookUpadate.Id)
+                return BadRequest(ModelState);
+
+            if (!bookInterface.HasBook(bookId))
+                return NotFound();
+
+            if (!ModelState.IsValid)
+                return BadRequest();
+
+            if(!bookInterface.UpdateBook(bookUpadate))
+            {
+                ModelState.AddModelError("", "Something went wrong updating category");
+                return StatusCode(500, ModelState);
+            }
+
+            return Ok("Successfully created");
+        }
     }
 }
+
